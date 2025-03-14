@@ -12,9 +12,23 @@ public class Main {
                 for(int i = 0 ; i < entrada.length() ; i++){
                 char[] C_entrada = entrada.toCharArray();
 
-                if(C_entrada[1] == "="){
-                    
-            }
+                if(entrada = "REC"){
+
+                }
+                else if(entrada = "STOP"){
+
+                }
+                else if(entrada = "PLAY"){
+
+                }
+                else if(entrada = "Erase"){
+
+                }
+                else{
+                    throw new Exception("comando inexistente");
+                }
+
+
         }
     }
 }

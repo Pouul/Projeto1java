@@ -3,7 +3,7 @@ class Vars{
     private int valor;
     private static final char VARS_DEFAULT = 'X';
     private static final int VAL_DEFAULT = 0; 
-    //se pá vamos precisar usar hashmap
+    
 
     public Vars(char variavel, int valor){
         this.variavel = variavel;
