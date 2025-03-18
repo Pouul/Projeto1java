@@ -12,10 +12,13 @@ class ler{
 public class Main {
     public static void main(String[] args) {
         try{
+            gravador aux = new gravador();
             Scanner scanner = new Scanner(System.in);
+            String entrada = scanner.nextLine();
+             int posição = 0;
 
             while(entrada != "exit"){
-              String entrada = scanner.nextLine();
+              entrada = scanner.nextLine();
               entrada = entrada.replaceAll(" ", "");
               String M_entrada = entrada.toUpperCase();
               char[] C_entrada = M_entrada.toCharArray();
@@ -27,36 +30,37 @@ public class Main {
               }
                 
               if(entrada == "REC"){
-                String[] REC = new String[10];
+                
+                String[] RECOR = new String[10];
                 for(i = 0 ; i < 10 ; i++){
                   entrada = scanner.nextLine();
                   switch(entrada) {
-                    case STOP:
-                      int posição = i;
+                    case "STOP":
+                      posição = i;
                       System.out.println("encerrando gravação..." + "(" + posição + "/" + "10)");
                       break;
-                    case PLAY:
+                    case "PLAY":
                       throw new Exception("Comando inválido para gravação");
                       i--;
                       break;
-                    case ERASE:
+                    case "ERASE":
                       entrada = null;
                       System.out.println("Gravação apagada");
                       break;
                     default:
-                      REC(entrada , i , REC);
+                      aux.gravar(entrada , i , RECOR);
                   }   
                 }
               }
 
               if(entrada == "ERASE"){
-                entrada = null;
+                
                 System.out.println("Gravação apagada");
               }
 
               else if(entrada == "PLAY"){
                 for(i = 0 ; i < posição ; i++){
-                  ler(REC[i]);
+                  //ler(RECOR[i]);
                 }
               }
                 

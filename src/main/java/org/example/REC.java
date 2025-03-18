@@ -1,15 +1,20 @@
-class REC{
-    
+package org.example;
 
-    public REC(String entrada , int posição , String REC[]) {
+class gravador{
+    
+    public gravador(){
+
+    }
+    
+    public static void gravar(String entrada , int posição , String arr[]) {
         
         try{
-            REC[posição] = entrada;
+            arr[posição] = entrada;
         }
         catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
-        System.out.println("(" + posição + "/" + "10)" + REC[posição]);
+        System.out.println("(" + posição + "/" + "10)" + arr[posição]);
     }
 
     
