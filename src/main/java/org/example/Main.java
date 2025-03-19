@@ -52,12 +52,21 @@ public class Main {
                       posição = i;
                       System.out.println("encerrando gravação..." + "(" + posição + "/" + "10)");
                       break outerLoop;
+                    // mudança para simplificar
                     case "PLAY":
                       i--;
                       throw new Exception("Comando inválido para gravação");
                     case "ERASE":
-                      entrada = null;
-                      System.out.println("Gravação apagada");
+                      i--;
+                      throw new Exception("Comando inválido para gravação");
+                      break;
+                    case "EXIT":
+                      i--;
+                      throw new Exception("Comando inválido para gravação");
+                      break;
+                    case "RESET":
+                      i--;
+                      throw new Exception("Comando inválido para gravação");
                       break;
                     default:
                       gravar(entrada , i , RECOR);
@@ -75,9 +84,15 @@ public class Main {
               }
 
               else if(M_entrada.equals("PLAY")){
-                for(i = 0 ; i < posição ; i++){
-                  //ler(RECOR[i]);
+                if(posição == 0){
+                  throw new Exception("não há comandos gravados");
                 }
+                else{
+                  for(i = 0 ; i < posição ; i++){
+                  //ler(RECOR[i]);
+                  }
+                }
+                
               }
                 
               else if(M_entrada.equals("RESET")){
