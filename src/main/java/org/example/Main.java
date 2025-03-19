@@ -20,6 +20,8 @@ public class Main {
         }
         System.out.println("(" + posição + "/" + "10)" + arr[posição]);
     }
+    
+
     public static void main(String[] args) {
         try{
             
@@ -63,9 +65,12 @@ public class Main {
                 }
                 System.out.println(RECOR[0]);
               }
+              
+              //ganbiarra
+              if(M_entrada.equals("REC")){}
 
               if(M_entrada.equals("ERASE")){
-                
+                RECOR = new String[0];
                 System.out.println("Gravação apagada");
               }
 
