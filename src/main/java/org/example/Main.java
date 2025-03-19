@@ -10,14 +10,24 @@ class ler{
 }
 
 public class Main {
+    public static void gravar(String entrada , int posição , String arr[]) {
+        
+        try{
+            arr[posição] = entrada;
+        }
+        catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        System.out.println("(" + posição + "/" + "10)" + arr[posição]);
+    }
     public static void main(String[] args) {
         try{
-            gravador aux = new gravador();
+            
             Scanner scanner = new Scanner(System.in);
-            String entrada = scanner.nextLine();
-             int posição = 0;
+            String entrada = "INICIAÇÃO";
+            int posição = 0;
 
-            while(entrada != "exit"){
+            while(!entrada.equals("EXIT")){
               entrada = scanner.nextLine();
               entrada = entrada.replaceAll(" ", "");
               String M_entrada = entrada.toUpperCase();
@@ -29,52 +39,53 @@ public class Main {
                 
               }
                 
-              if(entrada == "REC"){
-                
+              if(M_entrada.equals("REC")){
+                System.out.println("entrou REC");
                 String[] RECOR = new String[10];
+                outerLoop:
                 for(i = 0 ; i < 10 ; i++){
-                  entrada = scanner.nextLine();
-                  switch(entrada) {
+                  String gravados = scanner.nextLine();
+                  switch(gravados) {
                     case "STOP":
                       posição = i;
                       System.out.println("encerrando gravação..." + "(" + posição + "/" + "10)");
-                      break;
+                      break outerLoop;
                     case "PLAY":
-                      throw new Exception("Comando inválido para gravação");
                       i--;
-                      break;
+                      throw new Exception("Comando inválido para gravação");
                     case "ERASE":
                       entrada = null;
                       System.out.println("Gravação apagada");
                       break;
                     default:
-                      aux.gravar(entrada , i , RECOR);
+                      gravar(entrada , i , RECOR);
                   }   
                 }
+                System.out.println(RECOR[0]);
               }
 
-              if(entrada == "ERASE"){
+              if(M_entrada.equals("ERASE")){
                 
                 System.out.println("Gravação apagada");
               }
 
-              else if(entrada == "PLAY"){
+              else if(M_entrada.equals("PLAY")){
                 for(i = 0 ; i < posição ; i++){
                   //ler(RECOR[i]);
                 }
               }
                 
-              else if(entrada == "RESET"){
+              else if(M_entrada.equals("RESET")){
 
               }
 
-              else if(entrada == "VARS"){
+              else if(M_entrada.equals("VARS")){
 
               }
-
               //se nao for nenhum das opções, a entrada é invalido
               else{
-
+                  throw new Exception("comando invalido");
+                
               } 
             }
         }     
