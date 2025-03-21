@@ -10,15 +10,17 @@ class ler{
 }
 
 public class Main {
-    public static void gravar(String entrada , int posição , String arr[]) {
+    public static void gravar(String gravados , int posição , String arr[] , int posiçãoR) {
         
         try{
-            arr[posição] = entrada;
+            arr[posição] = gravados;
         }
         catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
-        System.out.println("(" + posição + "/" + "10)" + arr[posição]);
+        
+        
+        System.out.println("(" + posiçãoR + "/" + "10) " + arr[posição]);
     }
     
 
@@ -28,12 +30,14 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String entrada = "INICIAÇÃO";
             int posição = 0;
+            int posiçãoR = 0;
 
             while(!entrada.equals("EXIT")){
-              entrada = scanner.nextLine();
-              entrada = entrada.replaceAll(" ", "");
+              entrada = scanner.nextLine().replaceAll(" ", "");
+              
               String M_entrada = entrada.toUpperCase();
-              char[] C_entrada = M_entrada.toCharArray();
+              
+              String[] RECOR = new String[10];
               int i ;
 
               //para ler o entrada variavel e equação
@@ -43,7 +47,7 @@ public class Main {
                 
               if(M_entrada.equals("REC")){
                 System.out.println("entrou REC");
-                String[] RECOR = new String[10];
+                
                 outerLoop:
                 for(i = 0 ; i < 10 ; i++){
                   String gravados = scanner.nextLine();
@@ -59,26 +63,31 @@ public class Main {
                     case "ERASE":
                       i--;
                       throw new Exception("Comando inválido para gravação");
-                      break;
+                      
                     case "EXIT":
                       i--;
                       throw new Exception("Comando inválido para gravação");
-                      break;
+                      
                     case "RESET":
                       i--;
                       throw new Exception("Comando inválido para gravação");
-                      break;
+                      
+                    case "REC":
+                      i--;
+                      throw new Exception("Comando inválido para gravação");
+                      
                     default:
-                      gravar(entrada , i , RECOR);
+                      gravar(gravados , i , RECOR , ++i);
                   }   
                 }
-                System.out.println(RECOR[0]);
               }
               
               //ganbiarra
-              if(M_entrada.equals("REC")){}
+              else if(M_entrada.equals("REC")){
+                  
+              }
 
-              if(M_entrada.equals("ERASE")){
+              else if(M_entrada.equals("ERASE")){
                 RECOR = new String[0];
                 System.out.println("Gravação apagada");
               }
@@ -104,9 +113,10 @@ public class Main {
               }
               //se nao for nenhum das opções, a entrada é invalido
               else{
+                  
                   throw new Exception("comando invalido");
                 
-              } 
+              }
             }
         }     
 
