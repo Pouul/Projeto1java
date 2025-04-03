@@ -2,125 +2,76 @@ package org.example;
 
 import java.util.Scanner;
 
-// função para ler entrada , pode ser depois
-class ler{
-    ler(String entrada){
-
+// Classe para leitura (ainda não implementada)
+class Ler {
+    Ler(String entrada) {
+        
     }
 }
 
 public class Main {
-    public static void gravar(String gravados , int posição , String arr[] , int posiçãoR) {
-        
-        try{
-            arr[posição] = gravados;
-        }
-        catch (Exception e) {
+    public static void gravar(String gravados, int posicao, String arr[], int posicaoR) {
+        try {
+            arr[posicao] = gravados;
+        } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
-        
-        
-        System.out.println("(" + posiçãoR + "/" + "10) " + arr[posição]);
+        System.out.println("(" + posicaoR + "/10) " + arr[posicao]);
     }
-    
 
     public static void main(String[] args) {
-        try{
-            
+        try {
             Scanner scanner = new Scanner(System.in);
             String entrada = "INICIAÇÃO";
-            int posição = 0;
-            int posiçãoR = 0;
-
-            while(!entrada.equals("EXIT")){
-              entrada = scanner.nextLine().replaceAll(" ", "");
-              
-              String M_entrada = entrada.toUpperCase();
-              
-              String[] RECOR = new String[10];
-              int i ;
-
-              //para ler o entrada variavel e equação
-              for(i = 0 ; i < entrada.length() ; i++){
+            int posicao = 0;
+            int posicaoR = 0;
+            String[] RECOR = new String[10];
+            
+            while (!entrada.equals("EXIT")) {
+                entrada = scanner.nextLine().replaceAll(" ", "");
+                String M_entrada = entrada.toUpperCase();
+                int i;
                 
-              }
-                
-              if(M_entrada.equals("REC")){
-                System.out.println("entrou REC");
-                
-                outerLoop:
-                for(i = 0 ; i < 10 ; i++){
-                  String gravados = scanner.nextLine();
-                  switch(gravados) {
-                    case "STOP":
-                      posição = i;
-                      System.out.println("encerrando gravação..." + "(" + posição + "/" + "10)");
-                      break outerLoop;
-                    // mudança para simplificar
-                    case "PLAY":
-                      i--;
-                      throw new Exception("Comando inválido para gravação");
-                    case "ERASE":
-                      i--;
-                      throw new Exception("Comando inválido para gravação");
-                      
-                    case "EXIT":
-                      i--;
-                      throw new Exception("Comando inválido para gravação");
-                      
-                    case "RESET":
-                      i--;
-                      throw new Exception("Comando inválido para gravação");
-                      
-                    case "REC":
-                      i--;
-                      throw new Exception("Comando inválido para gravação");
-                      
-                    default:
-                      gravar(gravados , i , RECOR , ++i);
-                  }   
-                }
-              }
-              
-              //ganbiarra
-              else if(M_entrada.equals("REC")){
-                  
-              }
+                if (M_entrada.equals("REC")) {
+                    System.out.println("Entrou REC");
+                    Gravador g = new gravdor(10);
+                    outerLoop:
+                    for (i = 0; i < 10; i++) {
+                        String gravado = scanner.nextLine();
+                        if(gravado == "STOP"){
+                            posicao = i;
+                            System.out.println("Encerrando gravação... (" + posicao + "/10)");
+                            break outerLoop;
+                        }
+                        else{
 
-              else if(M_entrada.equals("ERASE")){
-                RECOR = new String[0];
-                System.out.println("Gravação apagada");
-              }
-
-              else if(M_entrada.equals("PLAY")){
-                if(posição == 0){
-                  throw new Exception("não há comandos gravados");
-                }
-                else{
-                  for(i = 0 ; i < posição ; i++){
-                  //ler(RECOR[i]);
-                  }
+                            gravar(gravado);
+                        }
+                        
+                    }
                 }
                 
-              }
-                
-              else if(M_entrada.equals("RESET")){
-
-              }
-
-              else if(M_entrada.equals("VARS")){
-
-              }
-              //se nao for nenhum das opções, a entrada é invalido
-              else{
-                  
-                  throw new Exception("comando invalido");
-                
-              }
+                else if (M_entrada.equals("ERASE")) {
+                    g.apagar();
+                    System.out.println("Gravação apagada");
+                } 
+                else if (M_entrada.equals("PLAY")) {
+                    if (posicao == 0) {
+                        throw new Exception("Não há comandos gravados");
+                    } else {
+                        for (i = 0; i < posicao; i++) {
+                            // Ler(RECOR[i]); // Ainda não implementado
+                        }
+                    }
+                } else if (M_entrada.equals("RESET")) {
+                    // Implementação futura
+                } else if (M_entrada.equals("VARS")) {
+                    // Implementação futura
+                } else {
+                    throw new Exception("Comando inválido");
+                }
             }
-        }     
-
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
