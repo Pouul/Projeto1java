@@ -285,7 +285,6 @@ public class Main {
     public static void main(String[] args) {
         try {
             Scanner scanner = new Scanner(System.in);
-            
             Pilha pilha = new Pilha();
             String entrada = "Iniciação";
             PilhaNum pilhanum = new PilhaNum();
@@ -300,7 +299,8 @@ public class Main {
             int posicao = 0;
             int i;
             Gravador g = new Gravador(10);
-
+            System.out.println("Algoritmos foi inicializado");
+            
             while (!entrada.equals("EXIT")) {
                 entrada = scanner.nextLine().replaceAll(" ", "").toUpperCase();
         
