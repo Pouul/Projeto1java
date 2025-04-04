@@ -1,4 +1,5 @@
 package org.example;
+
 public class FilaCircular{
     private static final int TAM_DEFAULT = 100;
     private int inicio;
@@ -10,7 +11,7 @@ public class FilaCircular{
         this.inicio = 0;
         this.fim = 0;
         this.qtde = 0;
-        this.f = new Object[tamanho];
+        this.f = new String[tamanho];
     }
 
     public FilaCircular(){
@@ -22,13 +23,13 @@ public class FilaCircular{
     }
 
     public boolean fIsFull(){
-        return this.qtde == this.f.lenght;
+        return this.qtde == this.f.length;
     }
 
     public void enqueue(String entrada) throws Exception{
         if(!this.fIsFull()){
             this.f[this.fim++] = entrada;
-            this.fim%= this.f.lenght;
+            this.fim%= this.f.length;
             ++this.qtde;
         }
         else{
@@ -36,10 +37,10 @@ public class FilaCircular{
         }
     }
 
-    public String denquere() throws Exception{
+    public String denqueue() throws Exception{
         if(!this.fIsEmpty()){
             String aux = this.f[this.inicio];
-            this.inicio = ++this.inicio % this.f.lenght;
+            this.inicio = ++this.inicio % this.f.length;
             --this.qtde;
             return aux;
         }

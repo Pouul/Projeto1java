@@ -2,13 +2,18 @@ package org.example;
 
 import java.util.Scanner;
 
-
-
-
 public class Main {
-    // Classe para leitura (ainda não implementada)
-    class Ler {
-        Ler(char[] junto) {
+    
+    public static void Ler(char[] junto, int tracker, Pilha pilha,PilhaNum pilhanum,char[] vari,int[] valor,char[] posfixa,int reach,int aux,int posicao,String entrada,Gravador g)  {
+        
+            int convertido;
+            boolean teste ; // trocar
+            boolean teste2; //trocar
+            boolean teste3;
+            
+            
+            Scanner scanner = new Scanner(System.in);
+
             if(junto.length >= 3 && junto[1] == '=')
             {
                 vari[tracker] = junto[0];
@@ -18,6 +23,76 @@ public class Main {
                 System.out.println(vari[tracker]+" = "+valor[tracker]);
                 tracker++;
             }
+
+            else if (junto.length == 1) {
+                boolean encontrado = false;
+                for (int j = 0; j < tracker; j++) {
+                    if (junto[0] == vari[j]) {
+                        System.out.println(valor[j]);
+                        encontrado = true;
+                        break;
+                    }
+                }
+                if (!encontrado) {
+                    System.out.println("Variável" +junto[0]+ " não inciada.");
+                }
+            }
+            else if (entrada.equals("REC")) {
+                
+                String gravado;
+                outerLoop:
+                for (int i = 0; i < 10; i++) {
+                    gravado = scanner.nextLine();
+                    if(gravado.equals("STOP")){
+                        posicao = i;
+                        System.out.println("Encerrando gravação... (" + posicao + "/10)");
+                        break outerLoop;
+                    }
+                    else{
+                        try {
+                        g.gravar(gravado,junto,i);
+                        } 
+                        catch (Exception e) {
+                        System.out.println("Erro ao gravar: " + e.getMessage());
+                    }
+                        
+                    } 
+                }
+            }
+
+            else if(entrada.equals("REC")){}
+
+            else if (entrada.equals("ERASE")){
+                try {
+                    g.apagar();
+                } 
+                catch (Exception e) {
+                    System.out.println("Erro ao gravar: " + e.getMessage());
+                }
+                System.out.println("Gravação apagada");
+            } 
+
+            else if (entrada.equals("RESET")) {
+                vari = new char[10];
+                valor = new int[10];
+                tracker = 0;
+                System.out.println("Variaveis reiniciadas");
+            } 
+
+            else if (entrada.equals("VARS")) {
+                if(tracker == 0)
+                {
+                    System.out.println("Nenhuma variavel iniciada");
+                }
+                else
+                {
+                    for(int j = 0;j<tracker;j++)
+                    {
+                        System.out.println(vari[j]+" = "+valor[j]);
+                    }
+                }
+            } 
+
             else
             {
                 String[] verifica = verificador(junto);
@@ -37,6 +112,7 @@ public class Main {
                     }
                     junto = new char[20];
                 }
+                
                 else if(teste == true && teste2 == true && teste3 == true)
                 {
                     while(reach < junto.length)
@@ -82,7 +158,7 @@ public class Main {
                     reach = 0;
                     //aux = 0;
 
-                    PilhaNum pilhanum = new PilhaNum();
+                    
                     int res = 0;
                     int num1 = 0;
                     int num2 = 0;
@@ -140,9 +216,9 @@ public class Main {
                     posfixa = new char[20];
                     junto = new char[20];
                     aux = 0;
-                }
             }
         }
+        
     }
     public static String[] verificador(char[] junto){
         char[] veri = junto;
@@ -209,79 +285,42 @@ public class Main {
     public static void main(String[] args) {
         try {
             Scanner scanner = new Scanner(System.in);
-            String entrada = "INICIAÇÃO";
-            char[] junto = new char[20];
-            junto[0] = 'I';
+            
+            Pilha pilha = new Pilha();
+            String entrada = "Iniciação";
+            PilhaNum pilhanum = new PilhaNum();
             char[] vari = new char[10];
             int[] valor = new int[10];
             char[] posfixa = new char[20];
+            char[] junto = new char[20];
+            int reach = 0, aux = 0;
+            junto[0] = 'I';
             int convertido;
-            int tracker = 0, reach = 0, aux = 0;
+            int tracker = 0;
             int posicao = 0;
-            
-            
-            while (!junto.equals("EXIT")) {
-                entrada = scanner.nextLine().replaceAll(" ", "");
-                junto = entrada.toUpperCase();
-                junto = entrada.toCharArray();
-                int i;
+            int i;
+            Gravador g = new Gravador(10);
 
-               
+            while (!entrada.equals("EXIT")) {
+                entrada = scanner.nextLine().replaceAll(" ", "").toUpperCase();
+        
 
-                if (junto.equals("REC")) {
-                    System.out.println("Entrou REC");
-                    Gravador g = new gravdor(10);
-                    outerLoop:
-                    for (i = 0; i < 10; i++) {
-                        String gravado = scanner.nextLine();
-                        if(gravado == "STOP"){
-                            posicao = i;
-                            System.out.println("Encerrando gravação... (" + posicao + "/10)");
-                            break outerLoop;
-                        }
-                        else{
-                            gravar(gravado);
-                        } 
-                    }
-                }
-
-                
-                else if (junto.equals("ERASE")) {
-                    g.apagar();
-                    System.out.println("Gravação apagada");
-                } 
-
-                else if (junto.equals("PLAY")) {
+                if (entrada.equals("PLAY")){
                     if (posicao == 0) {
                         throw new Exception("Não há comandos gravados");
                     } else {
                         for (i = 0; i < posicao; i++) {
-                            Ler(f.dequere());
+                            Ler(g.dequeue().toCharArray(),tracker,pilha,pilhanum,vari,valor,posfixa,reach,aux,posicao,entrada,g);
                         }
                     }
                 } 
-                else if (junto.equals("RESET")) {
-                    vari = new char[10];
-                    valor = new int[10];
-                    tracker = 0;
-                    System.out.println("Variaveis reiniciadas");
-                } 
-                else if (junto.equals("VARS")) {
-                    if(tracker == 0)
-                    {
-                        System.out.println("Nenhuma variavel iniciada");
-                    }
-                    else
-                    {
-                        for(int j = 0;j<tracker;j++)
-                        {
-                            System.out.println(vari[j]+" = "+valor[j]);
-                        }
-                    }
-                } 
+                //char[] junto, int tracker, Pilha pilha,PilhaNum pilhanum,char[] vari,int[] valor,char[] posfixa,int reach,int aux,int posicao,String entrada,Gravador g
                 else {
-                    ler(junto);
+                    junto = entrada.toCharArray();
+                    Ler(junto,tracker,pilha,pilhanum,vari,valor,posfixa,reach,aux,posicao,entrada,g);
+                    
                 }
+
             }
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());

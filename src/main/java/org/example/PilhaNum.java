@@ -1,3 +1,5 @@
+package org.example;
+
 public class PilhaNum {
     private int Tam_Default = 100;
     private int topoPilha;
