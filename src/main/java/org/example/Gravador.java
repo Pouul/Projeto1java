@@ -1,10 +1,14 @@
 package org.example;
 
 class Gravador{
-    private String[] vetor;
+    
     private String[] comandos = {"RESET","PLAY","EXIT","ERASE","REC"};
     public gravador(int capacidade){
-        this.vetor = new String [capacidade];
+        FilaCircular g = new FilaCircular(capacidade);
+        int tamanho = 0;
+    }
+    public gravador(){
+        FilaCircular g = new FilaCircular(10);
         int tamanho = 0;
     }
 
@@ -18,7 +22,7 @@ class Gravador{
     }
 
     public boolean isFull(){
-        if(vetor.length == tamanho){
+        if(f.totalElementos == tamanho){
             return true;
         }
         else{
@@ -36,21 +40,23 @@ class Gravador{
         }
     }
     
-    public void gravar(String entrada, int tamanho) {
-        if (!isFull() && !isInvalalible(entrada)) { 
-            vetor[tamanho] = entrada;
+    public void gravar(String entrada, int tamanho) throws Exception {
+        String[] verifica = verificador(junto);
+        if (!isFull() && !isInvalalible(entrada) && Boolean.valueOf(verifica[1])) { 
+            f.enquere(entrada);
             System.out.println("(REC: " + posição + "/10)" + entrada);
         }
         else{
-            System.out.println("O vetor está cheio!");
+            System.out.println("O vetor está cheio ou entrada é inválida");
         }
     }
 
     public void apagar(int tamanho) {
-        
+        if(isEmpty()){
+            throw new Exception("Underflow - Esvaziamento de Gravador");
+        }
         while(!isEmpty()){
-            vetor[tamanho] = null;
-            tamanho--;
+            f.denquere();
         }
     }
 
